@@ -11,21 +11,22 @@ const userGet = async(req, res) => {
     const { limite = 5, desde = 0 } = req.query;
     const status = { estado: true }
 
-    const usuario = await User.find(status)
-        .skip(Number(desde))
-        .limit(Number(limite));
+    // const usuario = await User.find(status)
+    //     .skip(Number(desde))
+    //     .limit(Number(limite));
 
     //const total = await User.countDocuments(status)
 
-    // const [total, data] = await Promise.all([
-    //     User.countDocuments(status),
-    //     User.find(status)
-    //         .skip(Number(desde))
-    //         .limit(Number(limite))
-    // ])
+    const [total, data] = await Promise.all([
+        User.countDocuments(status),
+        User.find(status)
+            .skip(Number(desde))
+            .limit(Number(limite))
+    ])
 
     res.json({
-        usuario
+        total,
+        data
     })
 }
 const userPost = async (req, res = response) => {
