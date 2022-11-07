@@ -9,7 +9,7 @@ Node + Express + mongoose
 Pasos para correr el proyecto en mi local:
 
 ```
-1. git@github.com:defcom20/node-crud-v1.git
+1. git clone git@github.com:defcom20/node-crud-v1.git
 2. pnpm i
 3. nodemon app - node app.js / pm2 start ecosystem.config.js
 ```
