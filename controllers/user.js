@@ -31,48 +31,56 @@ const userGet = async(req, res) => {
 const userPost = async (req, res = response) => {
    
     const { nombre, correo, password, rol} = req.body;
-    const user = new User({ nombre, correo, password, rol })
-    
-    //Encriptar contraseña
-    const salt = bcryptjs.genSaltSync();
-    user.password = bcryptjs.hashSync(password, salt)
-    //Guardar base de datos
-    await user.save()
+    try {
+        const user = new User({ nombre, correo, password, rol })
+        const salt = bcryptjs.genSaltSync();
+        user.password = bcryptjs.hashSync(password, salt)
+        await user.save()
 
-    res.json({
-        msg: 'POST CONTROLLERS', user
-    })
+        res.json({
+            msg: `Data success`
+        })
+    } catch (error) {
+        res.status(401).json({
+            msg: `Create error ${error}`
+        })
+    }
 }
 const userPut = async (req, res = response) => {
 
     const { id } = req.params
-    const { password, google, correo, ...data } = req.body
+    const { password, ...data } = req.body
 
-    //Todo validar BD
-    if( password ){
-        //Encriptar contraseña
-        const salt = bcryptjs.genSaltSync();
-        data.password = bcryptjs.hashSync(password, salt)
-    }
-
-    const usuario = await User.findByIdAndUpdate(id, data)
-
-    res.json({
-        msg: 'PUT correcto', usuario
-    })
-
-    
+    try {
+        if (password) {
+            const salt = bcryptjs.genSaltSync();
+            data.password = bcryptjs.hashSync(password, salt)
+        }
+        await User.findByIdAndUpdate(id, data)
+        res.json({
+            msg: 'Update success',
+        })
+    } catch (error) {
+        res.status(401).json({
+            msg: `Update error ${error}`
+        })
+    }    
 }
 const userDelete = async(req, res = response) => {
 
     const { id } = req.params
-    const usuario = await User.findByIdAndUpdate(id, {estado: false})
-    const usuarioAtenticado = req.usuario
-
-    res.json({
-        usuario,
-        usuarioAtenticado
-    })
+    try {
+        // const usuario = await User.findByIdAndUpdate(id, { estado: false })
+        // const usuarioAtenticado = req.usuario
+        await User.findByIdAndUpdate(id, { estado: false })
+        res.json({
+            msg: 'Delete success',
+        })
+    } catch (error) {
+        res.status(401).json({
+            msg: `Delete error ${error}`
+        })
+    }
 }
 
 module.exports = {
