@@ -5,7 +5,6 @@ const bcryptjs = require('bcryptjs');
 //Models
 const User = require('../models/user');
 
-
 const userGet = async(req, res) => {
 
     const { limite = 5, desde = 0 } = req.query;
@@ -67,14 +66,12 @@ const userPut = async (req, res = response) => {
 const userDelete = async(req, res = response) => {
 
     const { id } = req.params
-
-    // FISICAMENTE LO BORRO
-    // const usuario = await User.findByIdAndDelete(id)
-
     const usuario = await User.findByIdAndUpdate(id, {estado: false})
+    const usuarioAtenticado = req.usuario
 
     res.json({
-        usuario
+        usuario,
+        usuarioAtenticado
     })
 }
 

@@ -2,16 +2,16 @@
 
 Curso de fernando herrera - Udemy academia
 
-Node + Express + mongoose
+Node + Express
 
 ## Empezando
 
 Pasos para correr el proyecto en mi local:
 
 ```
-1. git clone git@github.com:defcom20/node-crud-v1.git
+1. https://gitlab.com/backend235/node-express-probando.git
 2. pnpm i
-3. nodemon app - node app.js / pm2 start ecosystem.config.js
+3. nodemon app
 ```
 
-Resultado: Puerto corriendo en http://localhost:xxxx
+Resultado: Puerto corriendo en http://localhost:8080
