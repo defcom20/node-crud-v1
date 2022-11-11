@@ -20,11 +20,14 @@
 
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
+
+        var url = window.location.hostname.includes('localhost') ? 'http://localhost:8700/api/auth/google' : 'https://node-crud-v1-production.up.railway.app/api/auth/google'
+
         function handleCredentialResponse(response) {
 
             const data = { id_token: response.credential }
 
-            fetch('http://localhost:8700/api/auth/google', {
+            fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
