@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator');
-const User = require('../models/user');
+const { User } = require('../models');
 
 const validarCampos = (req, res, next) => {
     const errors = validationResult(req)
